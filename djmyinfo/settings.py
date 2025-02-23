@@ -133,3 +133,36 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+MYINFO_DOMAIN = env("MYINFO_DOMAIN")
+MYINFO_AUTHORIZE_URL = env("MYINFO_AUTHORIZE_URL")
+MYINFO_CLIENT_ID = env("MYINFO_CLIENT_ID")
+MYINFO_SCOPE = (
+    # Personal
+    "uinfin name sex race dob residentialstatus nationality birthcountry "
+    "passtype passstatus passexpirydate "
+    "employmentsector mobileno email regadd housingtype hdbtype "
+    # --- Finance
+    "cpfcontributions "
+    "noahistory "  # Notice of Assessment (Detailed, Last 2 Years)
+    "ownerprivate "  # Ownership of Private Residential Property
+    # --- Education & employment
+    "employment "  # Name of Employer
+    "occupation "
+    # Employers as stated in CPF Contribution History (up to 15 months)
+    "cpfemployers "
+    # --- Family
+    "marital"
+)
+
+MYINFO_JWKS_TOKEN_VERIFICATION_URL = env("MYINFO_JWKS_TOKEN_VERIFICATION_URL")
+MYINFO_JWKS_DATA_VERIFICATION_URL = env("MYINFO_JWKS_DATA_VERIFICATION_URL")
+MYINFO_PURPOSE_ID = env("MYINFO_PURPOSE_ID")
+
+# ansible vault somehow replaces double quotes with single quotes.
+# so we need to revert to double quotes.
+MYINFO_PRIVATE_KEY_SIG = env('MYINFO_PRIVATE_KEY_SIG', default='').replace("'", '"')
+MYINFO_PRIVATE_KEY_ENC = env('MYINFO_PRIVATE_KEY_ENC', default='').replace("'", '"')
+
+CERT_VERIFY = env("CERT_VERIFY")
