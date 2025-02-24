@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Home - DJ MyInfo App
+{% endblock %}
+{% block content %}
+  <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: calc(100vh - 100px)">
+    {% comment %} <div class="d-flex flex-column gap-2 w-50">
+      <h2>MyInfo App</h2>
+      <p>Welcome to the DJ MyInfo Application</p>
+      <button id="authorize-btn" class="btn btn-primary">Retrieve My Info</button>
+    </div> {% endcomment %}
+    <div class="jumbotron">
+      <h1 class="display-4">MyInfo Demo App</h1>
+      <p class="lead">This demo is an example of how your application should integrate with MyInfo.</p>
+      <hr class="my-4" />
+      {% comment %} <p>It uses utility classes for typography and spacing to space content out within the larger container.</p> {% endcomment %}
+      <p class="lead">
+        <a href="#" id="authorize-btn2"><img style="height:50px;" src="{% static 'images/singpass/Primary.svg' %}" /></a>
+      </p>
+    </div>
+  </div>
+{% endblock %}
