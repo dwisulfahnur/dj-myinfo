@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Home - DJ MyInfo App
+{% endblock %}
+
+{% block content %}
+  <div class="container py-5 w-100 text-center" id="loading-container">
+    <div class="spinner-grow" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <div class="container d-none pt-5 pb-3 w-100" id="error-container">
+    <div class="w-100 mx-auto" style="max-width: 500px;">
+      <div class="alert alert-danger d-flex flex-column justify-content-center align-items-center gap-2" role="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg>
+        <div class="fw-semibold fs-5">Invalid Request!</div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-4 d-none" id="form-container">
+    <h2 class="mb-2">User Information Form</h2>
+    <p>Confirm your details below and click "Submit".</p>
+    <form id="dataForm">
+      <!-- Personal Information -->
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto">Personal Information</legend>
+        <div class="row mb-2 col-md-12">
+          <label class="col-sm-2 col-form-label text-end">UINFIN</label>
+          <div class="col-sm-10">
+            <input type="text" name="uinfin" class="form-control" disabled />
+          </div>
+        </div>
+        <div class="row mb-2 col-md-12">
+          <label class="col-sm-2 col-form-label text-end">Name</label>
+          <div class="col-sm-10">
+            <input type="text" name="name" class="form-control" disabled />
+          </div>
+        </div>
+        <div class="row mb-2 col-md-12">
+          <label class="col-sm-2 col-form-label text-end">Date of Birth</label>
+          <div class="col-sm-10">
+            <input type="date" name="dob" class="form-control" disabled />
+          </div>
+        </div>
+        <div class="row mb-2 col-md-12">
+          <label class="col-sm-2 col-form-label text-end">Birth Country</label>
+          <div class="col-sm-10">
+            <input type="text" name="birthcountry" class="form-control" disabled />
+          </div>
+        </div>
+        <div class="row mb-2 col-md-12">
+          <label class="col-sm-2 col-form-label text-end">Sex</label>
+          <div class="col-sm-10">
+            <input type="text" name="sex" class="form-control" disabled />
+          </div>
+        </div>
+        <div class="row mb-2 col-md-12">
+          <label class="col-sm-2 col-form-label text-end">Race</label>
+          <div class="col-sm-10">
+            <input type="text" name="race" class="form-control" disabled />
+          </div>
+        </div>
+        <div class="row mb-2 col-md-12">
+          <label class="col-sm-2 col-form-label text-end">Nationality</label>
+          <div class="col-sm-10">
+            <input type="text" name="nationality" class="form-control" disabled />
+          </div>
+        </div>
+        
+        <div class="row mb-2 col-md-12">
+          <label class="col-sm-2 col-form-label text-end">Email</label>
+          <div class="col-sm-10">
+            <input type="text" name="email" class="form-control" disabled />
+          </div>
+        </div>
+        
+        <div class="row mb-2 col-md-12">
+          <label class="col-sm-2 col-form-label text-end">Mobile Number</label>
+          <div class="col-sm-10">
+            <input type="text" name="mobileno" class="form-control" disabled />
+          </div>
+        </div>
+        
+        <div class="row mb-2 col-md-12">
+          <label class="col-sm-2 col-form-label text-end">Registered Address</label>
+          <div class="col-sm-10">
+            <input type="text" name="regadd" class="form-control" disabled />
+          </div>
+        </div>
+        
+        <div class="row mb-2 col-md-12">
+          <label class="col-sm-2 col-form-label text-end">Housing Type</label>
+          <div class="col-sm-10">
+            <input type="text" name="housingtype" class="form-control" disabled />
+          </div>
+        </div>
+        
+        <div class="row mb-2 col-md-12">
+          <label class="col-sm-2 col-form-label text-end">HDB Type</label>
+          <div class="col-sm-10">
+            <input type="text" name="hdbtype" class="form-control" disabled />
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Finance -->
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto">Annual Income</legend>
+        <div id="income-history" class="row"></div>
+      </fieldset>
+
+      <!-- CPF Contributions -->
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto">CPF Contributions</legend>
+        <div id="cpf-history" class="row"></div>
+      </fieldset>
+
+      <!-- NoA History -->
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto">Notice of Assesment</legend>
+        <div id="noa-history" class="row"></div>
+      </fieldset>
+
+      <!-- Education & Employment -->
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto">Education & Employment</legend>
+        <div class="mb-3">
+          <label class="form-label">Employment Sector</label>
+          <input type="text" name="employmentsector" class="form-control" disabled />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Occupation</label>
+          <input type="text" name="occupation" class="form-control" disabled />
+        </div>
+      </fieldset>
+
+      <!-- Family -->
+      <fieldset class="border p-3 mb-3">
+        <legend class="w-auto">Family</legend>
+        <div class="mb-3">
+          <label class="form-label">Marital Status</label>
+          <input type="text" name="marital" class="form-control" disabled />
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+{% endblock %}
