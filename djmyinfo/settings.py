@@ -60,7 +60,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'djmyinfo.urls'
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
-
+SESSION_COOKIE_AGE = 3600  # 1 hour
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # Keep session after closing browser
 
 TEMPLATES = [
     {
