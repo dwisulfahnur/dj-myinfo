@@ -87,8 +87,22 @@ WSGI_APPLICATION = 'djmyinfo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
+        'NAME': env('DB_NAME'),
+    }
+}
+
+# Caches
+# https://docs.djangoproject.com/en/5.1/topics/cache/
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": env("REDIS_URL", default="redis://127.0.0.1:6379"),
     }
 }
 
@@ -128,6 +142,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
@@ -166,4 +181,4 @@ MYINFO_PURPOSE_ID = env("MYINFO_PURPOSE_ID")
 MYINFO_PRIVATE_KEY_SIG = env('MYINFO_PRIVATE_KEY_SIG', default='').replace("'", '"')
 MYINFO_PRIVATE_KEY_ENC = env('MYINFO_PRIVATE_KEY_ENC', default='').replace("'", '"')
 
-CERT_VERIFY = env("CERT_VERIFY")
+CERT_VERIFY = env("CERT_VERIFY", default=False)
