@@ -7,9 +7,8 @@ services:
       - db
       - redis
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
-      - REDIS_URL=redis://redis:6379/0
-      - DB_HOST=db
+      - REDIS_URL=redis://redis:6379/0 # force redus_url to be using redis hostname with redis service name
+      - DB_HOST=db # force to be using db_host with db service name
     volumes:
       - .:/app
     ports:
