@@ -99,7 +99,7 @@
 5. **Run tests inside the `web` container**
 
    ```sh
-   docker-compose exec web python -m pytest
+   docker-compose -f docker-compose.db.yml -f docker-compose.yml exec web python -m pytest
    ```
 
 6. **To stop the containers**
