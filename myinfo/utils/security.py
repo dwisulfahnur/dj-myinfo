@@ -6,6 +6,7 @@ from hashlib import sha256
 import requests
 import logging
 from django.utils.crypto import get_random_string
+from django.core.cache import cache
 from jwcrypto import jwe, jwk, jws
 from jwcrypto.jwk import JWK, JWKSet
 from djmyinfo import settings
@@ -96,12 +97,11 @@ def get_jwkset(key_url: str) -> JWKSet:
     Retrieval of Myinfo JWKS should be cached for at least one hour and not retrieved for every JWT validation
     Reference: https://api.singpass.gov.sg/library/myinfo/developers/implementation-technical-requirements
     """
-    # TODO: configure CACHES backend in Django
-    # cache_key = f"myinfo::jwkset::{key_url}"
-    # keys_data = cache.get(cache_key)
-    # if keys_data is None:
-    #     keys_data = requests.get(key_url).text
-    #     cache.set(cache_key, keys_data, 3600)
+    cache_key = f"myinfo::jwkset::{key_url}"
+    keys_data = cache.get(cache_key)
+    if keys_data is None:
+        keys_data = requests.get(key_url).text
+        cache.set(cache_key, keys_data, 3600)
 
     keys_data = requests.get(key_url).text
     return JWKSet.from_json(keys_data)
