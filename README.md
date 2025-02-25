@@ -1,5 +1,54 @@
 # DJ MyInfo App
 
+
+## Running the Django App using Docker Compose (recommended)
+
+### Prerequisites
+
+- Docker and Docker Compose installed
+
+### Setup Steps
+
+1. **Copy the environment file**
+
+   ```sh
+   cp .env.example .env
+   ```
+
+   Then, edit `.env` based on your environment settings.
+
+   **Configure `.env` file:**
+   - Open `.env` and set the required values before running the application.
+   - Ensure all necessary variables are properly configured before proceeding.
+
+2. **Build and start the services (database, cache, and web app)**
+
+   ```sh
+   docker-compose -f docker-compose.db.yml -f docker-compose.yml up --build -d
+   ```
+
+3. **Run database migrations** inside the `web` container:
+
+   ```sh
+   docker-compose -f docker-compose.db.yml -f docker-compose.yml exec web python manage.py migrate
+   ```
+
+4. **Access the app at** `http://localhost:3001/`
+
+5. **Run tests inside the `web` container**
+
+   ```sh
+   docker-compose -f docker-compose.db.yml -f docker-compose.yml exec web python -m pytest
+   ```
+
+6. **To stop the containers**
+
+   ```sh
+   docker-compose down
+   ```
+
+---
+
 ## Running the App using Python Virtual Environment
 
 ### Prerequisites
@@ -58,52 +107,4 @@
 
    ```sh
    python -m pytest
-   ```
-
----
-
-## Running the Django App using Docker Compose
-
-### Prerequisites
-
-- Docker and Docker Compose installed
-
-### Setup Steps
-
-1. **Copy the environment file**
-
-   ```sh
-   cp .env.example .env
-   ```
-
-   Then, edit `.env` based on your environment settings.
-
-   **Configure `.env` file:**
-   - Open `.env` and set the required values before running the application.
-   - Ensure all necessary variables are properly configured before proceeding.
-
-2. **Build and start the services (database, cache, and web app)**
-
-   ```sh
-   docker-compose -f docker-compose.db.yml -f docker-compose.yml up --build -d
-   ```
-
-3. **Run database migrations** inside the `web` container:
-
-   ```sh
-   docker-compose exec web python manage.py migrate
-   ```
-
-4. **Access the app at** `http://localhost:3001/`
-
-5. **Run tests inside the `web` container**
-
-   ```sh
-   docker-compose -f docker-compose.db.yml -f docker-compose.yml exec web python -m pytest
-   ```
-
-6. **To stop the containers**
-
-   ```sh
-   docker-compose down
    ```
