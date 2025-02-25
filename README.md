@@ -1,6 +1,6 @@
-# Django App Setup Instructions
+# DJ MyInfo App
 
-## Running the Django App using Python Virtual Environment
+## Running the App using Python Virtual Environment
 
 ### Prerequisites
 
