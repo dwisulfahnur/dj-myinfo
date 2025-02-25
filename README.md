@@ -30,7 +30,7 @@
 3. **Create and activate a virtual environment**
 
    ```sh
-   python -m venv venv
+   python3.11 -m venv venv
    source venv/bin/activate  # On Windows use: venv\Scripts\activate
    ```
 
