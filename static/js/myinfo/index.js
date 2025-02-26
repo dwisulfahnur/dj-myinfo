@@ -22,10 +22,11 @@ async function getPersonData(code) {
 
 async function handleFormSubmit(evt) {
   evt.preventDefault()
-  const fields = [
-    "uinfin", "fullname", "sex", "race", "nationality", "dob", "email",
-    "mobileno", "regaddress", "housingtype", "marital", "edulevel", "edulevel",
-  ]
+  document.querySelector('form#dataForm button[type="submit"]').classList.add("disabled")
+  // const fields = [
+  //   "uinfin", "fullname", "sex", "race", "nationality", "dob", "email",
+  //   "mobileno", "regaddress", "housingtype", "marital", "edulevel", "edulevel",
+  // ]
 }
 
 function formatAddress(data) {
@@ -138,7 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
     })
 
-    const form = document.querySelector("form#form-submit");
+    const form = document.querySelector("form#dataForm");
     const isCallbackPage = window.location.href.indexOf("callback?code") > -1;
     if (isCallbackPage) {
       const params = new URLSearchParams(window.location.search);
