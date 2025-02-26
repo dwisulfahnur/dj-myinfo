@@ -2,7 +2,6 @@
 services:
   db:
     image: postgres:15
-    container_name: postgres_db
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
@@ -11,10 +10,14 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]  # Check if PostgreSQL is ready
+      interval: 10s  # Check every 10 seconds
+      timeout: 5s    # Timeout after 5 seconds
+      retries: 5     # Retry 5 times before considering it unhealthy
 
   redis:
     image: redis:7
-    container_name: redis_cache
     volumes:
       - ./data/redis:/data
     ports:
